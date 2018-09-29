@@ -14,7 +14,7 @@
         <vs-checkbox v-model="isClose">Is Close</vs-checkbox>
       </div>
       <br>
-      <vs-button style="width: 100%;" vs-type="relief" vs-color="success" @click.stop.prevent="test" :disabled="!isLoaded">Test</vs-button>
+      <vs-button style="width: 100%;" vs-type="relief" vs-color="success" @click.stop.prevent="test" :disabled="!isLoaded">Test Query</vs-button>
     </aside>
     <main class="new-issue-result">
       <div>
@@ -46,6 +46,7 @@
 
 <script>
 import Service from '@/services'
+import Store from '@/store/db'
 
 import LoaderWrapper from '@/components/Shared/LoaderWrapper'
 
@@ -111,7 +112,6 @@ export default {
   },
   computed: {
     parsedTextQueries () {
-      console.log(this.queryTexts)
       return this.queryTexts.map(query => this.querifyString(query.value, query.prefix)).join(' ')
     },
     stateQueries () {
@@ -146,7 +146,14 @@ export default {
         .trim()
     },
     submit () {
-      window.alert('submit')
+      const name = this.newIssueName
+      const query = this.resultQueries
+      console.log(name, query)
+      console.log(Store)
+      Store.createNewIssue(1, name, query)
+        .then((response) => {
+          console.log(response)
+        })
     },
     test () {
       if (!this.isLoaded) {
