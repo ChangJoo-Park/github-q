@@ -6,7 +6,6 @@
         <router-link tag="li" :to="{ name: 'app-page-bookmarked' }">Bookmarked</router-link>
         <router-link tag="li" :to="{ name: 'app-page-assigned' }">Assigned</router-link>
         <router-link tag="li" :to="{ name: 'app-page-mentioned' }">Mentioned</router-link>
-        <router-link tag="li" :to="{ name: 'app-page-pullrequests' }">Pull Requests</router-link>
       </ul>
       <ul>
         <router-link tag="li" :to="{ name: 'app-page-organizations' }">All Organizations</router-link>
@@ -52,15 +51,6 @@ export default {
     // this.getIssues()
   },
   methods: {
-    getNotifications () {
-      const url = `https://api.github.com/notifications?access_token=${this.accessToken}`
-
-      axios
-        .get(url)
-        .then((response) => {
-          this.notifications = response.data
-        })
-    },
     getIssues () {
       const url = `https://api.github.com/issues?access_token=${this.accessToken}`
 
@@ -88,7 +78,9 @@ html, body,.app {
   height: 100vh;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
+
 .app {
   display: flex;
   flex-direction: row;
@@ -98,9 +90,11 @@ html, body,.app {
   flex: 0;
   min-width: 300px;
   border-right: 1px solid black;
+  overflow-y: auto;
 }
 
 .app-main {
   flex: 1;
+  overflow-y: auto;
 }
 </style>

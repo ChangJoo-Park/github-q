@@ -11,5 +11,11 @@
 </script>
 
 <style>
-  /* CSS */
+/* CSS */
+* {
+  font-family: sans-serif;
+}
+pre {
+  font-family: "Fira Code";
+}
 </style>
