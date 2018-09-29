@@ -150,10 +150,9 @@ export default {
       const query = this.resultQueries
       console.log(name, query)
       console.log(Store)
-      Store.createNewIssue(1, name, query)
-        .then((response) => {
-          console.log(response)
-        })
+      Service.getUser().then((user) => {
+        Store.createNewIssue(user.id, name, query)
+      })
     },
     test () {
       if (!this.isLoaded) {

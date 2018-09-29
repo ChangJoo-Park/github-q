@@ -17,6 +17,14 @@ function getIssues (userId) {
     .toArray()
 }
 
+function getIssue (userId, id) {
+  return getDB().issues
+    .where({
+      userId, id
+    })
+    .first()
+}
+
 function createNewIssue (userId, name, query) {
   return getDB().issues.add({ userId, name, query })
 }
@@ -24,5 +32,6 @@ function createNewIssue (userId, name, query) {
 export default {
   getDB,
   createNewIssue,
-  getIssues
+  getIssues,
+  getIssue
 }

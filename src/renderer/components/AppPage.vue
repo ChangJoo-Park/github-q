@@ -26,18 +26,9 @@
           User
         </vs-divider>
         <vs-sidebar-item index= "7" to="/app/newissue">New Issue</vs-sidebar-item>
-        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
-        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
-        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
-        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
-        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
-        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
-        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
-        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
-        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
-        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
-        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
-        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
+        <vs-sidebar-item v-for="issue in savedIssues" :key="issue.id" :index= "Number(issue.id) + 100" :to="getIssueUrl(issue.id)">
+          {{ issue.name }}
+        </vs-sidebar-item>
         <div class="footer-sidebar" slot="footer">
           <vs-button vs-icon="reply" vs-color="danger" vs-type="flat">Sign Out</vs-button>
           <vs-button vs-icon="settings" vs-color="primary" vs-type="border"></vs-button>
@@ -52,18 +43,28 @@
 
 <script>
 import Service from '@/services'
+import Store from '@/store/db'
 
 export default {
   data () {
     return {
       active: false,
-      user: null
+      user: null,
+      savedIssues: null
     }
   },
   created () {
     Service.getUser().then((user) => {
       this.user = user
+      Store.getIssues(this.user.id).then((response) => {
+        this.savedIssues = response
+      })
     })
+  },
+  methods: {
+    getIssueUrl (id) {
+      return `/app/issue/${id}`
+    }
   }
 }
 </script>
