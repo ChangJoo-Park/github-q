@@ -3,6 +3,7 @@ import axios from 'axios'
 import Vuesax from 'vuesax'
 
 import 'vuesax/dist/vuesax.css'
+import 'material-icons/iconfont/material-icons.css'
 
 import App from './App'
 import router from './router'
