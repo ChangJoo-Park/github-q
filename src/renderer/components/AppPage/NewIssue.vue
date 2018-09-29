@@ -153,6 +153,12 @@ export default {
       Service.getUser().then((user) => {
         Store.createNewIssue(user.id, name, query).then(_ => {
           this.$bus.$emit('update-issue-listing')
+          this.isLoaded = true
+          this.isTested = false
+          this.queryTexts.forEach(q => {
+            q.value = ''
+          })
+          this.result = []
         })
       })
     },

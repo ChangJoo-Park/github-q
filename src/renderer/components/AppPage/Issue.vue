@@ -26,15 +26,26 @@ export default {
       result: null
     }
   },
+  watch: {
+    '$route.params' () {
+      this.fetchIssueResultByQuery()
+    }
+  },
   mounted () {
-    Service.getUser().then((user) => {
-      Store.getIssue(user.id, this.$route.params.id).then((response) => {
-        this.issue = response
-        Service.getSearchResult(this.issue.query, 1, 10).then((response) => {
-          this.result = response.data
+    this.fetchIssueResultByQuery()
+  },
+  methods: {
+    fetchIssueResultByQuery () {
+      Service.getUser().then((user) => {
+        Store.getIssue(user.id, this.$route.params.id).then((response) => {
+          this.issue = response
+          this.result = []
+          Service.getSearchResult(this.issue.query, 1, 10).then((response) => {
+            this.result = response.data
+          })
         })
       })
-    })
+    }
   }
 }
 </script>

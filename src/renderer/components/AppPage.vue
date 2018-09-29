@@ -26,7 +26,7 @@
           User
         </vs-divider>
         <vs-sidebar-item index= "7" to="/app/newissue">New Issue</vs-sidebar-item>
-        <vs-sidebar-item v-for="issue in savedIssues" :key="issue.id" :index= "Number(issue.id) + 100" :to="getIssueUrl(issue.id)">
+        <vs-sidebar-item v-for="issue in savedIssues" :key="issue.id" :index= "getIssueIndex(issue.id)" :href="getIssueUrl(issue.id)">
           {{ issue.name }}
         </vs-sidebar-item>
         <div class="footer-sidebar" slot="footer">
@@ -62,7 +62,10 @@ export default {
   },
   methods: {
     getIssueUrl (id) {
-      return `/app/issue/${id}`
+      return `#/app/issue/${id}`
+    },
+    getIssueIndex (id) {
+      return 100 + id
     },
     fetchIssueListing () {
       Service.getUser().then((user) => {
