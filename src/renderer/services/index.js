@@ -59,9 +59,19 @@ function getSearchResult (q, page = 1, perPage = 100) {
   }).catch(errorHandler)
 }
 
+function getUser () {
+  return axios({
+    method: 'GET',
+    url: `https://api.github.com/user${getAccessTokenUrl()}`
+  }).catch(errorHandler).then((response) => {
+    return response.data
+  })
+}
+
 export default {
   getNotifications,
   getAssignedIssues,
   getMentionedIssues,
-  getSearchResult
+  getSearchResult,
+  getUser
 }

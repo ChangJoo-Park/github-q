@@ -2,12 +2,10 @@
   <div class="app">
     <aside class="app-sidebar parentx-static">
       <vs-sidebar static-position default-index="1" color="primary" class="sidebarx" spacer v-model="active">
-
-        <div class="header-sidebar" slot="header">
-          <vs-avatar  size="70px" src="https://randomuser.me/api/portraits/men/85.jpg"/>
-
+        <div class="header-sidebar" slot="header" v-if="user">
+          <vs-avatar  size="50px" :src="user.avatar_url"/>
           <h4>
-            My Name
+            {{ user.login }}
             <vs-button vs-color="primary" vs-icon="more_horiz" vs-type="flat"></vs-button>
           </h4>
 
@@ -29,8 +27,19 @@
         </vs-divider>
         <vs-sidebar-item index= "7" to="/app/newissue">New Issue</vs-sidebar-item>
         <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
+        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
+        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
+        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
+        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
+        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
+        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
+        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
+        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
+        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
+        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
+        <vs-sidebar-item index= "8" to="/app/issue/1">이슈목록1</vs-sidebar-item>
         <div class="footer-sidebar" slot="footer">
-          <vs-button vs-icon="reply" vs-color="danger" vs-type="flat">log out</vs-button>
+          <vs-button vs-icon="reply" vs-color="danger" vs-type="flat">Sign Out</vs-button>
           <vs-button vs-icon="settings" vs-color="primary" vs-type="border"></vs-button>
         </div>
       </vs-sidebar>
@@ -42,11 +51,19 @@
 </template>
 
 <script>
+import Service from '@/services'
+
 export default {
   data () {
     return {
-      active: false
+      active: false,
+      user: null
     }
+  },
+  created () {
+    Service.getUser().then((user) => {
+      this.user = user
+    })
   }
 }
 </script>
@@ -74,6 +91,39 @@ html, body,.app {
   border-right: 1px solid black;
   overflow-y: auto;
   margin-right: 1rem;
+}
+.header-sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  h4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    button {
+      margin-left: 10px;
+    }
+  }
+
+}
+
+.footer-sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  button {
+      border: 0px solid rgba(0,0,0,0) !important;
+      border-left: 1px solid rgba(0,0,0,.07) !important;
+      border-radius: 0px !important;
+  }
+}
+
+.sidebarx {
+  height: 100%;
 }
 
 .app-main {

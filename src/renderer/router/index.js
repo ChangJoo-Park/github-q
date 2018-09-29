@@ -60,7 +60,7 @@ export default new Router({
           component: require('@/components/AppPage/Repos').default
         },
         {
-          path: '/issue/:id',
+          path: 'issue/:id',
           name: 'app-page-issue',
           component: require('@/components/AppPage/Issue').default
         }
