@@ -4,25 +4,32 @@
       <div class="centerx labelx" v-for="(item, index) in queryTexts" :key="index">
         <vs-input :vs-label="item.label" vs-placeholder="" v-model="item.value" />
       </div>
+      <br>
       <!-- CheckBoxes -->
-      <ul>
-        <li>
-          <vs-checkbox v-model="isOpen">Is Open</vs-checkbox>
-        </li>
-        <li>
-          <vs-checkbox v-model="isClose">Is Close</vs-checkbox>
-        </li>
-      </ul>
-
-      <vs-button vs-type="relief" vs-color="primary" @click.stop.prevent="test" :disabled="!isLoaded">Test</vs-button>
+      <div class="">
+        <vs-checkbox v-model="isOpen">Is Open</vs-checkbox>
+      </div>
+      <br>
+      <div class="">
+        <vs-checkbox v-model="isClose">Is Close</vs-checkbox>
+      </div>
+      <br>
+      <vs-button style="width: 100%;" vs-type="relief" vs-color="success" @click.stop.prevent="test" :disabled="!isLoaded">Test</vs-button>
     </aside>
     <main class="new-issue-result">
-      <div>Query : {{parsedTextQueries}}</div>
+      <div>
+        Query : {{parsedTextQueries}}
+        <div class="new-issue-form" v-if="isTested">
+          <vs-input class="inputx input-new-issue-name" placeholder="Issue Filter Name" v-model="newIssueName"/>
+          <vs-button vs-type="relief" vs-color="primary" @click.stop.prevent="submit">Save</vs-button>
+        </div>
+      </div>
+      <vs-divider />
       <br>
       <div v-if="isLoaded && result">
         <div>
-          <div>
-            <span>Total : {{ result.total_count }}</span>
+          <div style="text-align:center;">
+            <h2>Total {{ result.total_count }} issue<template v-if="result.total_count > 1">s</template></h2>
           </div>
           <vs-list>
             <vs-list-item v-for="item in result.items" :key="item.id" :title="item.title" :subtitle="item.body">
@@ -99,10 +106,7 @@ export default {
           prefix: '-label'
         }
       ],
-      newIssue: {
-        name: 'ABCD',
-        query: ''
-      }
+      newIssueName: ''
     }
   },
   computed: {
@@ -151,8 +155,9 @@ export default {
       this.$vs.loading()
       this.isLoaded = false
       setTimeout(() => {
-        Service.getSearchResult(this.resultQueries, 1, 3).then((response) => {
+        Service.getSearchResult(this.resultQueries, 1, 10).then((response) => {
           this.isLoaded = true
+          this.isTested = true
           this.$vs.loading.close()
           this.result = response.data
         }).catch(_ => {
@@ -177,10 +182,21 @@ export default {
   min-width: 200px;
   overflow-y: auto;
   margin-right: 1rem;
+  padding: 1rem 0;
 }
 
 .new-issue-result {
   flex: 1;
   overflow-y: auto;
+  padding: 1rem;
+}
+.new-issue-form {
+  margin-top: 1rem;
+  display: flex;
+  align-items: flex-end;
+}
+
+.input-new-issue-name {
+  margin-right: 1rem;
 }
 </style>
