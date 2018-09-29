@@ -50,6 +50,7 @@ html, body,.app {
   min-width: 300px;
   border-right: 1px solid black;
   overflow-y: auto;
+  margin-right: 1rem;
 }
 
 .app-main {

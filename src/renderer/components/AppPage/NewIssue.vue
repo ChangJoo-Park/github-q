@@ -5,27 +5,33 @@
         <vs-input :vs-label="item.label" vs-placeholder="" v-model="item.value" />
       </div>
       <!-- CheckBoxes -->
-      <div class="">
-        <label for="">isOpen</label>
-        <input type="checkbox" v-model="isOpen">
-      </div>
+      <ul>
+        <li>
+          <vs-checkbox v-model="isOpen">Is Open</vs-checkbox>
+        </li>
+        <li>
+          <vs-checkbox v-model="isClose">Is Close</vs-checkbox>
+        </li>
+      </ul>
 
-      <div class="">
-        <label for="">isClose</label>
-        <input type="checkbox" v-model="isClose">
-      </div>
-
-      <!-- Default -->
-      <div class="">
-        <label for="">Archived</label>
-        <input type="checkbox" v-model="archive">
-      </div>
-      <button type="button" name="button" @click.stop.prevent="test" :disabled="!isLoaded">Test</button>
+      <vs-button vs-type="relief" vs-color="primary" @click.stop.prevent="test" :disabled="!isLoaded">Test</vs-button>
     </aside>
     <main class="new-issue-result">
-      <pre>{{parsedTextQueries}}</pre>
-      <div v-if="isLoaded">
-        <div>{{ items }}</div>
+      <div>Query : {{parsedTextQueries}}</div>
+      <br>
+      <div v-if="isLoaded && result">
+        <div>
+          <div>
+            <span>Total : {{ result.total_count }}</span>
+          </div>
+          <vs-list>
+            <vs-list-item v-for="item in result.items" :key="item.id" :title="item.title" :subtitle="item.body">
+              <template slot="avatar">
+                <vs-avatar :src="item.user.avatar_url"/>
+              </template>
+            </vs-list-item>
+          </vs-list>
+        </div>
       </div>
     </main>
   </div>
@@ -44,7 +50,7 @@ export default {
     return {
       isTested: false,
       isLoaded: true,
-      items: [],
+      result: null,
       author: '',
       archive: false,
       isOpen: false,
@@ -148,7 +154,7 @@ export default {
         Service.getSearchResult(this.resultQueries, 1, 3).then((response) => {
           this.isLoaded = true
           this.$vs.loading.close()
-          this.items = response.data
+          this.result = response.data
         }).catch(_ => {
           this.isLoaded = true
           this.$vs.loading.close()
@@ -170,6 +176,7 @@ export default {
   flex: 0;
   min-width: 200px;
   overflow-y: auto;
+  margin-right: 1rem;
 }
 
 .new-issue-result {
