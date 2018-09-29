@@ -3,9 +3,6 @@
     <div v-if="isLoaded">
       <slot />
     </div>
-    <div v-else>
-      불러오는 중입니다.
-    </div>
   </div>
 </template>
 
@@ -15,6 +12,16 @@ export default {
     isLoaded: {
       type: Boolean,
       default: () => false
+    }
+  },
+  mounted () {
+    this.$vs.loading()
+  },
+  watch: {
+    isLoaded (value) {
+      if (value) {
+        this.$vs.loading.close()
+      }
     }
   }
 }

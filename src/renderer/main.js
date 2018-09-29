@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import axios from 'axios'
+import Vuesax from 'vuesax'
+
+import 'vuesax/dist/vuesax.css'
 
 import App from './App'
 import router from './router'
 import store from './store'
+
+Vue.use(Vuesax)
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios

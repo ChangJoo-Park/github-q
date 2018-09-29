@@ -1,49 +1,33 @@
 <template>
-  <div class="">
-    <form @submit.prevent="submit">
-      <div class="">
-        <label for="issue-name">Issue Name</label>
-        <input type="text" id="issue-name" name="issue-name" v-model="newIssue.name">
+  <div class="new-issue">
+    <aside class="new-issue-filter">
+      <div class="centerx labelx" v-for="(item, index) in queryTexts" :key="index">
+        <vs-input :vs-label="item.label" vs-placeholder="" v-model="item.value" />
       </div>
+      <!-- CheckBoxes -->
       <div class="">
-        <div class="">
-          <label for="issue-query">Query</label>
-          <input type="text" id="issue-query" name="issue-query" v-model="newIssue.query">
-        </div>
-        <hr>
-        <div class="" v-for="(item, index) in queryTexts" :key="index">
-          <label for="">{{ item.label }}</label>
-          <input type="text" v-model="item.value">
-        </div>
-        <!-- CheckBoxes -->
-        <div class="">
-          <label for="">isOpen</label>
-          <input type="checkbox" v-model="isOpen">
-        </div>
+        <label for="">isOpen</label>
+        <input type="checkbox" v-model="isOpen">
+      </div>
 
-        <div class="">
-          <label for="">isClose</label>
-          <input type="checkbox" v-model="isClose">
-        </div>
-
-        <!-- Default -->
-        <div class="">
-          <label for="">Archived</label>
-          <input type="checkbox" v-model="archive">
-        </div>
-      </div>
       <div class="">
-        <button type="button" name="button" @click.stop.prevent="test" :disabled="!isLoaded">Test</button>
-        <button type="submit" name="button" :disabled="!isTested">Submit</button>
+        <label for="">isClose</label>
+        <input type="checkbox" v-model="isClose">
       </div>
-    </form>
-    <div v-if="isLoaded">
-      <div>{{ items }}</div>
-    </div>
-    <div v-else>
-      <h1>불러오는 중입니다.</h1>
-    </div>
-    </div>
+
+      <!-- Default -->
+      <div class="">
+        <label for="">Archived</label>
+        <input type="checkbox" v-model="archive">
+      </div>
+      <button type="button" name="button" @click.stop.prevent="test" :disabled="!isLoaded">Test</button>
+    </aside>
+    <main class="new-issue-result">
+      <pre>{{parsedTextQueries}}</pre>
+      <div v-if="isLoaded">
+        <div>{{ items }}</div>
+      </div>
+    </main>
   </div>
 </template>
 
@@ -117,6 +101,7 @@ export default {
   },
   computed: {
     parsedTextQueries () {
+      console.log(this.queryTexts)
       return this.queryTexts.map(query => this.querifyString(query.value, query.prefix)).join(' ')
     },
     stateQueries () {
@@ -157,14 +142,16 @@ export default {
       if (!this.isLoaded) {
         return
       }
+      this.$vs.loading()
       this.isLoaded = false
       setTimeout(() => {
         Service.getSearchResult(this.resultQueries, 1, 3).then((response) => {
           this.isLoaded = true
-          console.log(response.data)
+          this.$vs.loading.close()
           this.items = response.data
         }).catch(_ => {
-
+          this.isLoaded = true
+          this.$vs.loading.close()
         })
       }, 300)
     }
@@ -173,5 +160,20 @@ export default {
 </script>
 
 <style>
+.new-issue {
+  display: flex;
+  overflow: hidden;
+  height: 100vh;
+}
 
+.new-issue-filter {
+  flex: 0;
+  min-width: 200px;
+  overflow-y: auto;
+}
+
+.new-issue-result {
+  flex: 1;
+  overflow-y: auto;
+}
 </style>
