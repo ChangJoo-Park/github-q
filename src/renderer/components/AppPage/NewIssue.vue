@@ -151,7 +151,9 @@ export default {
       console.log(name, query)
       console.log(Store)
       Service.getUser().then((user) => {
-        Store.createNewIssue(user.id, name, query)
+        Store.createNewIssue(user.id, name, query).then(_ => {
+          this.$bus.$emit('update-issue-listing')
+        })
       })
     },
     test () {

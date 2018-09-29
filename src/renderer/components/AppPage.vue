@@ -54,16 +54,23 @@ export default {
     }
   },
   created () {
-    Service.getUser().then((user) => {
-      this.user = user
-      Store.getIssues(this.user.id).then((response) => {
-        this.savedIssues = response
-      })
+    this.fetchIssueListing()
+
+    this.$bus.$on('update-issue-listing', _ => {
+      this.fetchIssueListing()
     })
   },
   methods: {
     getIssueUrl (id) {
       return `/app/issue/${id}`
+    },
+    fetchIssueListing () {
+      Service.getUser().then((user) => {
+        this.user = user
+        Store.getIssues(this.user.id).then((response) => {
+          this.savedIssues = response
+        })
+      })
     }
   }
 }
