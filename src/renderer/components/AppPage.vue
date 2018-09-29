@@ -88,7 +88,7 @@ html, body,.app {
 .app-sidebar {
   flex: 0;
   min-width: 260px;
-  border-right: 1px solid black;
+  border-right: 1px solid rgba(0,0,0,0.1);
   overflow-y: auto;
   margin-right: 1rem;
 }

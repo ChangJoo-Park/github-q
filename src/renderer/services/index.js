@@ -38,9 +38,9 @@ function getNotifications () {
     .catch(errorHandler)
 }
 
-function getAssignedIssues () {
+function getAssignedIssues (page = 1, perPage = 20) {
   // https://api.github.com/issues?access_token=4ccf8e0a9d45f31c92763fa2923810aa9d853d18&since=2018-09-28
-  const url = `${BASE_URL}/issues${getAccessTokenUrl()}&since=${getDateFromNow(-1)}`
+  const url = `${BASE_URL}/issues${getAccessTokenUrl()}&since=${getDateFromNow(-1)}&page=${page}&per_page=${perPage}`
   return requestGet(url)
 }
 
