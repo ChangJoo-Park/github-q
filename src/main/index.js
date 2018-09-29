@@ -92,8 +92,7 @@ ipcMain.on('request-access-token', (event, arg) => {
       // Close the browser if code found or error
       authWindow.destroy()
     }
-    console.log('code => ', code, ' url => ', url)
-    debugger
+
     // If there is a code, proceed to get token from github
     if (code) {
       requestGithubToken(OPTIONS, code)
@@ -117,9 +116,7 @@ ipcMain.on('request-access-token', (event, arg) => {
       }
     })
       .then(response => {
-        console.log(response)
         const data = response.data
-        console.log('data => ', data.access_token)
         event.sender.send('recieve-access-token', data.access_token)
       })
       .catch(error => {
@@ -141,3 +138,5 @@ ipcMain.on('request-access-token', (event, arg) => {
     authWindow.destroy()
   }, false)
 })
+
+// Issues

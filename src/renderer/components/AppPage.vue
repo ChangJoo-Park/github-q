@@ -24,48 +24,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-import octokit from '@octokit/rest'
-
 export default {
-  data () {
-    return {
-      accessToken: window.localStorage.getItem('accessToken'),
-      notifications: []
-    }
-  },
-  mounted () {
-    const api = octokit()
-    api.authenticate({
-      type: 'oauth',
-      token: this.accessToken
-    })
-
-    api.orgs.get({org: 'tabling'}).then(response => {
-      console.log('orgs => ', response)
-    })
-    api.search.issues({ q: 'is:open is:issue author:ChangJoo-Park archived:false user:tabling' }).then(response => {
-      console.log('issues => ', response)
-    })
-    // this.getNotifications()
-    // this.getIssues()
-  },
-  methods: {
-    getIssues () {
-      const url = `https://api.github.com/issues?access_token=${this.accessToken}`
-
-      axios({
-        method: 'GET',
-        url,
-        headers: {
-          Accept: 'application/json'
-        }
-      })
-        .then((response) => {
-          console.log(response)
-        })
-    }
-  }
 }
 </script>
 
