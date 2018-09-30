@@ -4,7 +4,9 @@
     <issue-label v-for="label in labels" :key="label.id" :label="label" />
     <div v-html="issue.body"></div>
     {{ createdInformation }} / {{ issue.comments }}
-    <issue-assignee v-for="assignee in assignees" :key="assignee.id" :assignee="assignee" />
+    <div class="">
+      <issue-assignee v-for="assignee in assignees" :key="assignee.id" :assignee="assignee" />
+    </div>
   </div>
 </template>
 
