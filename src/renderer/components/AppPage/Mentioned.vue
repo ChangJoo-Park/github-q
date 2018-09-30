@@ -1,9 +1,22 @@
 <template>
   <div>
-    <h1>Mentioned Issues</h1>
+    <h1 class="page-title">Mentioned Issues</h1>
     <loader-wrapper :is-loaded="isLoaded">
-      <div v-if="issues">
-        <issue v-for="issue in issues" :key="issue.id" :issue="issue"/>
+      <div v-if="issues" class="issue-wrapper">
+        <div class="issue-listing-wrapper">
+          <div class="issue-listings">
+            <issue
+            v-for="issue in issues"
+            :key="issue.id"
+            :issue="issue"
+            @click.native="onClickIssue(issue)"
+            />
+          </div>
+        </div>
+        <div class="issue-details" v-if="selectedIssue">
+          Hello World
+          <button type="button" name="button" @click="selectedIssue = null">Close</button>
+        </div>
       </div>
       <div v-else>
         <h1>There is no Assigned Issues</h1>
@@ -26,7 +39,8 @@ export default {
   data () {
     return {
       issues: null,
-      isLoaded: false
+      isLoaded: false,
+      selectedIssue: null
     }
   },
   mounted () {
@@ -36,6 +50,11 @@ export default {
         this.issues = data
       })
     }, 100)
+  },
+  methods: {
+    onClickIssue (issue) {
+      this.selectedIssue = issue
+    }
   }
 }
 </script>

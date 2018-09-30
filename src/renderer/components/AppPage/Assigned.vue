@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Assigned Issues</h1>
+    <h1 class="page-title">Assigned Issues</h1>
     <loader-wrapper :is-loaded="isLoaded">
       <div v-if="issues" class="issue-wrapper">
         <div class="issue-listing-wrapper">
@@ -61,6 +61,9 @@ export default {
 </script>
 
 <style>
+.page-title {
+  margin-bottom: 5px;
+}
 .issue-wrapper {
   display: flex;
   flex-direction: row;
