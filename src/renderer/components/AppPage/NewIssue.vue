@@ -31,13 +31,7 @@
           <div style="text-align:center;">
             <h2>Total {{ result.total_count }} issue<template v-if="result.total_count > 1">s</template></h2>
           </div>
-          <vs-list>
-            <vs-list-item v-for="item in result.items" :key="item.id" :title="item.title" :subtitle="item.body">
-              <template slot="avatar">
-                <vs-avatar :src="item.user.avatar_url"/>
-              </template>
-            </vs-list-item>
-          </vs-list>
+          <issue v-for="issue in result.items" :key="issue.id" :issue="issue"/>
         </div>
       </div>
     </main>
@@ -49,10 +43,12 @@ import Service from '@/services'
 import Store from '@/store/db'
 
 import LoaderWrapper from '@/components/Shared/LoaderWrapper'
+import Issue from '@/components/Shared/Issue'
 
 export default {
   components: {
-    LoaderWrapper
+    LoaderWrapper,
+    Issue
   },
   data () {
     return {
