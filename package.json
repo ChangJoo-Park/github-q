@@ -60,6 +60,7 @@
     "axios": "^0.18.0",
     "dexie": "^2.0.4",
     "dotenv": "^6.0.0",
+    "is-dark-color": "^1.2.0",
     "material-icons": "^0.2.3",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
