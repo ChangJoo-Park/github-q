@@ -68,10 +68,19 @@ function getUser () {
   })
 }
 
+function getComments (url) {
+  return requestGet(`${url}${getAccessTokenUrl()}`)
+    .then((response) => {
+      return response.data
+    })
+    .catch(errorHandler)
+}
+
 export default {
   getNotifications,
   getAssignedIssues,
   getMentionedIssues,
   getSearchResult,
-  getUser
+  getUser,
+  getComments
 }
