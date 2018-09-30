@@ -1,10 +1,14 @@
 <template>
-  <div v-if="issue">
-    <h3><small>{{repository.full_name}}</small>&nbsp;{{ issue.title }}</h3>
-    <issue-label v-for="label in labels" :key="label.id" :label="label" />
+  <div v-if="issue" class="issue">
+    <h3 class="issue-title">
+      <small class="issue-title-repo">{{repository.full_name}}</small>&nbsp;{{ issue.title }}
+      <issue-label v-for="label in labels" :key="label.id" :label="label" />
+    </h3>
+    <div class="issue-meta">
+      {{ createdInformation }} / {{ issue.comments }}
+    </div>
     <div class="issue-body" v-html="markdownParsedBody" />
-    {{ createdInformation }} / {{ issue.comments }}
-    <div class="">
+    <div class="issue-assignees">
       <issue-assignee v-for="assignee in assignees" :key="assignee.id" :assignee="assignee" />
     </div>
   </div>
@@ -67,9 +71,43 @@ export default {
 }
 </script>
 
-<style lang='css'>
+<style lang='scss'>
+.issue {
+  box-shadow: 0 4px 25px 0 rgba(0,0,0,.1);
+  margin: .5rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.issue-title {
+  margin-bottom: 5px;
+}
+
+.issue-title-repo {
+  margin-right: 5px;
+  color: grey;
+}
+
+.issue-meta {
+  font-size: 1rem;
+  color: #2f2f2f;
+}
+
+.issue-body {
+  margin-top: 1rem;
+}
+
 .issue-body img {
   display: block;
   max-height: 400px;
+}
+
+.issue-body ul {
+  margin-left: 1rem;
+}
+
+.issue-assignees {
+
 }
 </style>

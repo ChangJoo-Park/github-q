@@ -30,5 +30,7 @@ export default {
   box-sizing: border-box;
   padding: 3px 6px;
   border-radius: 3px;
+  margin-right: 5px;
+  font-size: 1rem;
 }
 </style>
