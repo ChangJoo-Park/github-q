@@ -1,7 +1,5 @@
 <template>
-  <div class="">
-    {{ assignee }}
-  </div>
+  <vs-avatar :src="assignee.avatar_url" :title="assignee.login" />
 </template>
 
 <script>
