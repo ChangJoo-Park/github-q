@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <div v-if="isLoaded">
-      <slot />
-    </div>
+  <div class="loader-wrapper">
+    <slot v-if="isLoaded" />
   </div>
 </template>
 
@@ -28,8 +26,7 @@ export default {
 </script>
 
 <style>
-/* CSS */
-* {
-  font-family: sans-serif;
+.loader-wrapper {
+  overflow-y: hidden;
 }
 </style>
