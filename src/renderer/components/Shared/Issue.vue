@@ -61,7 +61,7 @@ export default {
     },
     markdownParsedBody () {
       const body = this.issue.body || ''
-      return md.render(body)
+      return md.render(body.substring(0, 140))
     }
   }
 }
