@@ -79,6 +79,12 @@ export default {
   margin-bottom: 1rem;
   padding: 1rem;
   border-radius: 1rem;
+  transition: box-shadow 0.5s;
+  cursor: pointer;
+  
+  &:hover {
+    box-shadow: 0 5px 25px 0 rgba(0,0,0,.3);
+  }
 }
 
 .issue-title {
