@@ -10,7 +10,7 @@
       <div class="" style="text-align: center;">
         total {{result.total_count}}
       </div>
-      {{ result.items }}
+      <issue v-for="issue in result.items" :key="issue.id" :issue="issue"/>
     </div>
   </div>
 </template>
@@ -19,7 +19,12 @@
 import Service from '@/services'
 import Store from '@/store/db'
 
+import Issue from '@/components/Shared/Issue'
+
 export default {
+  components: {
+    Issue
+  },
   data () {
     return {
       issue: null,
