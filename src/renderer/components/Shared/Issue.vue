@@ -36,14 +36,15 @@ export default {
       return this.issue.assignees
     },
     repository () {
-      return this.issue.repository
+      return this.issue.repository || {}
     },
     createdInformation () {
       const issueNumber = `#${this.issue.number}` || -1
-      const state = `${this.issue.state}ed`
-      const stateAt = state === 'opened' ? this.issue.created_at : this.issue.closed_at
+      const state = `${this.issue.state}`
+      const pastState = state === 'open' ? 'opened' : 'closed'
+      const stateAt = state === 'open' ? this.issue.created_at : this.issue.closed_at
       const createdUser = this.user.login
-      return `${issueNumber} ${state} ${stateAt} by ${createdUser}`
+      return `${issueNumber} ${pastState} at ${stateAt} by ${createdUser}`
     }
   }
 }
