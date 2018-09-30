@@ -8,7 +8,8 @@
       {{ createdInformation }} / {{ issue.comments }}
     </div>
     <div class="issue-body" v-html="markdownParsedBody" />
-    <div class="issue-assignees">
+    <div class="issue-assignees" v-if="assignees">
+      <div>Assignees :</div>
       <issue-assignee v-for="assignee in assignees" :key="assignee.id" :assignee="assignee" />
     </div>
   </div>
@@ -103,11 +104,17 @@ export default {
   max-height: 400px;
 }
 
-.issue-body ul {
+.issue-body {
+  h1, h2, h3, h4, h5 {
+    margin-bottom: 1rem;
+  }
+}
+
+.issue-body ul, .issue-body ol {
   margin-left: 1rem;
 }
 
 .issue-assignees {
-
+  margin-top: 1rem;
 }
 </style>
