@@ -81,6 +81,7 @@ export default {
   border-radius: 1rem;
   transition: box-shadow 0.5s;
   cursor: pointer;
+  word-wrap: break-word;
   
   &:hover {
     box-shadow: 0 5px 25px 0 rgba(0,0,0,.3);
