@@ -139,6 +139,6 @@ html, body,.app {
 
 .app-main {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: hidden
 }
 </style>
