@@ -13,10 +13,9 @@
             />
           </div>
         </div>
-        <div class="issue-details" v-if="selectedIssue">
-          Hello World
+        <issue-detail class="issue-details" v-if="selectedIssue" :issue="selectedIssue">
           <button type="button" name="button" @click="selectedIssue = null">Close</button>
-        </div>
+        </issue-detail>
       </div>
       <div v-else>
         <h1>There is no Assigned Issues</h1>
@@ -30,12 +29,13 @@ import Service from '@/services'
 
 import LoaderWrapper from '@/components/Shared/LoaderWrapper'
 import Issue from '@/components/Shared/Issue'
-
+import IssueDetail from '@/components/Shared/IssueDetail'
 export default {
   components: {
     Notification,
     LoaderWrapper,
-    Issue
+    Issue,
+    IssueDetail
   },
   data () {
     return {
@@ -77,7 +77,5 @@ export default {
 
 .issue-details {
   flex: 2;
-  display: block;
-  position: sticky;
 }
 </style>
