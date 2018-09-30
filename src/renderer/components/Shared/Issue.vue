@@ -12,6 +12,7 @@
 
 <script>
 import MarkdownIt from 'markdown-it'
+import { format } from 'date-fns'
 
 import IssueLabel from '@/components/Shared/Issue/Label'
 import IssueUser from '@/components/Shared/Issue/User'
@@ -56,7 +57,7 @@ export default {
       const pastState = state === 'open' ? 'opened' : 'closed'
       const stateAt = state === 'open' ? this.issue.created_at : this.issue.closed_at
       const createdUser = this.user.login
-      return `${issueNumber} ${pastState} at ${stateAt} by ${createdUser}`
+      return `${issueNumber} ${pastState} at ${format(stateAt, 'MMMM dd YYYY h:mm aa')} by ${createdUser}`
     },
     markdownParsedBody () {
       const body = this.issue.body || ''
