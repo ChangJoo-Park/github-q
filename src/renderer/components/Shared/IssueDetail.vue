@@ -1,8 +1,12 @@
 <template>
   <div class="issue-detail">
-    <div class="issue-detail-info">
-      {{ issue.title }}
+    <div class="issue-details-actions">
+      <slot />
     </div>
+    <div class="issue-detail-info">
+      <h3>{{ issue.title }}</h3>
+    </div>
+    <div v-html="parsedBody"></div>
     <div class="issue-detail-comments">
       <comment
         v-for="comment in comments"
@@ -20,6 +24,8 @@
 import Service from '@/services'
 
 import Comment from '@/components/Shared/Comment'
+import Util from '@/utils.js'
+
 export default {
   props: {
     issue: {
@@ -40,7 +46,13 @@ export default {
       this.fetchComments(this.issue.comments_url)
     }
   },
+  computed: {
+    parsedBody () {
+      return Util.parseMarkdown(this.issue.body)
+    }
+  },
   mounted () {
+    console.log(Util.parseMarkdown)
     this.fetchComments(this.issue.comments_url)
   },
   methods: {
@@ -60,6 +72,7 @@ export default {
   height: calc(100vh - 40px);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .issue-detail-info {
@@ -74,5 +87,12 @@ export default {
 .issue-detail-composer {
   flex: 0;
   min-height: 30px;
+}
+
+.issue-details-actions {
+  text-align: right;
+  position: absolute;
+  top: 0;
+  right: 1rem;
 }
 </style>

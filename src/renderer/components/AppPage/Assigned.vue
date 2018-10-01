@@ -14,7 +14,7 @@
           </div>
         </div>
         <issue-detail class="issue-details" v-if="selectedIssue" :issue="selectedIssue">
-          <button type="button" name="button" @click="selectedIssue = null">Close</button>
+          <vs-button vs-color="dark" vs-type="filled" @click="selectedIssue = null">Close</vs-button>
         </issue-detail>
       </div>
       <div v-else>
