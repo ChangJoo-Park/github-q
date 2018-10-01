@@ -8,7 +8,7 @@ const md = MarkdownIt()
     }
   })
 
-const parseMarkdown = (body) => {
+const parseMarkdown = (body = '') => {
   return md.render(body)
 }
 
