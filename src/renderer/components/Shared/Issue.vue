@@ -57,7 +57,6 @@ export default {
     },
     markdownParsedBody () {
       const body = this.issue.body || ''
-      console.log(Utils)
       return Utils.parseMarkdown(body.substring(0, 140))
     }
   }
