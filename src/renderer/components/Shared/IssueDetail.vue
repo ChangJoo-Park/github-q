@@ -7,12 +7,9 @@
       <h3>{{ issue.title }}</h3>
     </div>
     <div v-html="parsedBody"></div>
+    <vs-divider />
     <div class="issue-detail-comments">
-      <comment
-        v-for="comment in comments"
-        :key="comment.id"
-        :comment="comment"
-      />
+      <comments :comments="comments" />
     </div>
     <div class="issue-detail-composer">
       <input type="text" name="" value="">
@@ -23,7 +20,7 @@
 <script>
 import Service from '@/services'
 
-import Comment from '@/components/Shared/Comment'
+import Comments from '@/components/Shared/Comments'
 import Util from '@/utils.js'
 
 export default {
@@ -33,7 +30,7 @@ export default {
     }
   },
   components: {
-    Comment
+    Comments
   },
   data () {
     return {
