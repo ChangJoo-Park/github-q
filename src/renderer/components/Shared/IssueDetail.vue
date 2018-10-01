@@ -1,18 +1,21 @@
 <template>
   <div class="issue-detail">
-    <div class="issue-details-actions">
-      <slot />
-    </div>
-    <div class="issue-detail-info">
-      <h3>{{ issue.title }}</h3>
-    </div>
-    <div v-html="parsedBody"></div>
-    <vs-divider />
-    <div class="issue-detail-comments">
-      <comments :comments="comments" />
+    <div class="issue-detail-body">
+      <div class="issue-details-actions">
+        <slot />
+      </div>
+      <div class="issue-detail-info">
+        <h3>{{ issue.title }}</h3>
+      </div>
+      <div v-html="parsedBody"></div>
+      <vs-divider />
+      <div class="issue-detail-comments">
+        <comments :comments="comments" />
+      </div>
     </div>
     <div class="issue-detail-composer">
-      <input type="text" name="" value="">
+      <vs-textarea label="New Comment" v-model="newComment" />
+      <vs-button vs-color="primary" vs-type="filled">Submit</vs-button>
     </div>
   </div>
 </template>
@@ -34,7 +37,8 @@ export default {
   },
   data () {
     return {
-      comments: []
+      comments: [],
+      newComment: ''
     }
   },
   watch: {
@@ -72,6 +76,10 @@ export default {
   position: relative;
 }
 
+.issue-detail-body {
+  flex: 1;
+}
+
 .issue-detail-info {
   flex: 0;
   min-height: 20px;
@@ -82,8 +90,9 @@ export default {
 }
 
 .issue-detail-composer {
-  flex: 0;
+  flex-shrink: 0;
   min-height: 30px;
+  padding: .5rem .5rem;
 }
 
 .issue-details-actions {
