@@ -16,21 +16,12 @@
 </template>
 
 <script>
-import MarkdownIt from 'markdown-it'
 import { format } from 'date-fns'
 
 import IssueLabel from '@/components/Shared/Issue/Label'
 import IssueUser from '@/components/Shared/Issue/User'
 import IssueAssignee from '@/components/Shared/Issue/Assignee'
-
-const md = MarkdownIt()
-  .use(require('markdown-it-checkbox'))
-  .use(require('markdown-it-link-attributes'), {
-    attrs: {
-      target: '_blank',
-      rel: 'noopener'
-    }
-  })
+import Utils from '@/utils'
 
 export default {
   props: {
@@ -66,7 +57,8 @@ export default {
     },
     markdownParsedBody () {
       const body = this.issue.body || ''
-      return md.render(body.substring(0, 140))
+      console.log(Utils)
+      return Utils.parseMarkdown(body.substring(0, 140))
     }
   }
 }
@@ -82,7 +74,7 @@ export default {
   transition: box-shadow 0.5s;
   cursor: pointer;
   word-wrap: break-word;
-  
+
   &:hover {
     box-shadow: 0 5px 25px 0 rgba(0,0,0,.3);
   }

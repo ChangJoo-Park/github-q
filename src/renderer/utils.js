@@ -9,7 +9,7 @@ const md = MarkdownIt()
   })
 
 const parseMarkdown = (body) => {
-  return md.render(body.substring(0, 140))
+  return md.render(body)
 }
 
 export default {
