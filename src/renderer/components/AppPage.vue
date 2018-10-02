@@ -57,6 +57,10 @@ export default {
       await this.fetchGithubUser()
       await this.fetchIssueListing()
       await this.fetchNotifications()
+      // setInterval(async () => {
+      //   console.log('run fetch notification')
+      //   // await this.fetchNotifications()
+      // }, 1000)
     } catch (e) {
       this.$vs.loading.close()
       this.$router.replace({ name: 'login-page' })
