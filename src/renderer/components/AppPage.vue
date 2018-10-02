@@ -56,6 +56,7 @@ export default {
     try {
       await this.fetchGithubUser()
       await this.fetchIssueListing()
+      await this.fetchNotifications()
     } catch (e) {
       this.$vs.loading.close()
       this.$router.replace({ name: 'login-page' })
@@ -69,7 +70,7 @@ export default {
     ...mapGetters(['githubUser', 'savedIssueQueries'])
   },
   methods: {
-    ...mapActions(['fetchGithubUser', 'fetchSavedIssueQueries']),
+    ...mapActions(['fetchGithubUser', 'fetchSavedIssueQueries', 'fetchNotifications']),
     getIssueUrl (id) {
       return `#/app/issue/${id}`
     },

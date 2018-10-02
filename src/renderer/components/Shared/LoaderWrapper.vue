@@ -13,7 +13,9 @@ export default {
     }
   },
   mounted () {
-    this.$vs.loading()
+    if (!this.isLoaded) {
+      this.$vs.loading()
+    }
   },
   watch: {
     isLoaded (value) {
