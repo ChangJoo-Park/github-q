@@ -69,7 +69,13 @@ function getUser () {
 }
 
 function getComments (url) {
-  return requestGet(`${url}${getAccessTokenUrl()}`)
+  return axios({
+    method: 'GET',
+    url: `${url}${getAccessTokenUrl()}`,
+    headers: {
+      Accept: 'application/vnd.github.squirrel-girl-preview' // for reaction
+    }
+  })
     .then((response) => {
       return response.data
     })
