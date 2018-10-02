@@ -39,7 +39,6 @@ export default {
   },
   data () {
     return {
-      issues: null,
       isLoaded: false,
       selectedIssue: null
     }
