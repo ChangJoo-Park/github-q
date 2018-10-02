@@ -1,5 +1,5 @@
 <template>
-  <div v-if="issue" class="issue">
+  <div v-if="issue" class="issue" :class="{ selected: isSelected }">
     <h3 class="issue-title">
       <small class="issue-title-repo">{{repository.full_name}}</small>&nbsp;{{ issue.title }}
       <issue-label v-for="label in labels" :key="label.id" :label="label" />
@@ -27,6 +27,10 @@ export default {
   props: {
     issue: {
       type: Object
+    },
+    isSelected: {
+      type: Boolean,
+      default: () => false
     }
   },
   components: {
@@ -114,5 +118,9 @@ export default {
 
 .issue-assignees {
   margin-top: 1rem;
+}
+
+.issue.selected {
+  background-color: #ddd;
 }
 </style>

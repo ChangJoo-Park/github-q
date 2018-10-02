@@ -9,6 +9,7 @@
             v-for="issue in mentionedIssues"
             :key="issue.id"
             :issue="issue"
+            :is-selected="isSelectedIssue(issue)"
             @click.native="onClickIssue(issue)"
             />
           </div>
@@ -63,6 +64,12 @@ export default {
         .then((response) => {
           this.isLoaded = true
         })
+    },
+    isSelectedIssue (issue) {
+      if (!this.selectedIssue || !issue) {
+        return false
+      }
+      return issue.id === this.selectedIssue.id
     }
   }
 }
