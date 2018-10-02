@@ -53,7 +53,6 @@ export default {
     }
   },
   mounted () {
-    console.log(Util.parseMarkdown)
     this.fetchComments(this.issue.comments_url)
   },
   methods: {
