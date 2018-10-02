@@ -76,11 +76,22 @@ function getComments (url) {
     .catch(errorHandler)
 }
 
+function createCommentToIssue (url, body) {
+  return axios({
+    method: 'POST',
+    url: `${url}${getAccessTokenUrl()}`,
+    data: {
+      body
+    }
+  })
+}
+
 export default {
   getNotifications,
   getAssignedIssues,
   getMentionedIssues,
   getSearchResult,
   getUser,
-  getComments
+  getComments,
+  createCommentToIssue
 }

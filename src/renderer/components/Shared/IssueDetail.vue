@@ -15,7 +15,7 @@
     </div>
     <div class="issue-detail-composer">
       <vs-textarea label="New Comment" v-model="newComment" />
-      <vs-button vs-color="primary" vs-type="filled">Submit</vs-button>
+      <vs-button vs-color="primary" vs-type="filled" @click.prevent="submitComment">Submit</vs-button>
     </div>
   </div>
 </template>
@@ -57,10 +57,22 @@ export default {
   },
   methods: {
     fetchComments (commentsUrl) {
-      this.comments = []
       Service.getComments(commentsUrl).then((response) => {
+        this.comments = []
         this.comments = response
       })
+    },
+    submitComment () {
+      if (this.newComment.trim() === '') {
+        return
+      }
+
+      const url = this.issue.comments_url
+      Service.createCommentToIssue(url, this.newComment)
+        .then((response) => {
+          this.newComment = ''
+          this.fetchComments(url)
+        })
     }
   }
 }
