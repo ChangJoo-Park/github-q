@@ -2,11 +2,11 @@
   <div>
     <h1 class="page-title">Assigned Issues</h1>
     <loader-wrapper :is-loaded="isLoaded">
-      <div v-if="issues" class="issue-wrapper">
+      <div v-if="assignedIssues" class="issue-wrapper">
         <div class="issue-listing-wrapper">
           <div class="issue-listings">
             <issue
-            v-for="issue in issues"
+            v-for="issue in assignedIssues"
             :key="issue.id"
             :issue="issue"
             @click.native="onClickIssue(issue)"
@@ -14,7 +14,7 @@
           </div>
         </div>
         <issue-detail class="issue-details" v-if="selectedIssue" :issue="selectedIssue">
-          <vs-button vs-color="dark" vs-type="filled" @click="selectedIssue = null">Close</vs-button>
+          <vs-button vs-color="dark" vs-type="filled" @click="onCloseSelectedIssue">Close</vs-button>
         </issue-detail>
       </div>
       <div v-else>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Service from '@/services'
+import { mapGetters, mapActions } from 'vuex'
 
 import LoaderWrapper from '@/components/Shared/LoaderWrapper'
 import Issue from '@/components/Shared/Issue'
@@ -45,16 +45,25 @@ export default {
     }
   },
   mounted () {
-    setTimeout(() => {
-      Service.getAssignedIssues().then(({ data }) => {
-        this.isLoaded = true
-        this.issues = data
-      })
-    }, 100)
+    this.fetchIssues()
+  },
+  computed: {
+    ...mapGetters(['assignedIssues'])
   },
   methods: {
+    ...mapActions(['fetchAssignedIssues']),
     onClickIssue (issue) {
       this.selectedIssue = issue
+    },
+    onCloseSelectedIssue () {
+      this.selectedIssue = null
+      this.fetchIssues()
+    },
+    fetchIssues () {
+      return this.fetchAssignedIssues()
+        .then((response) => {
+          this.isLoaded = true
+        })
     }
   }
 }

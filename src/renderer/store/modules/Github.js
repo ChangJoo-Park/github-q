@@ -4,7 +4,8 @@ import Store from '@/store/db'
 const state = {
   user: null,
   savedIssueQueries: null,
-  notifications: null
+  notifications: null,
+  assignedIssues: null
 }
 
 const mutations = {
@@ -19,6 +20,10 @@ const mutations = {
   },
   SET_NOTIFICATIONS (state, notifications) {
     state.notifications = notifications
+  },
+  SET_ASSIGNED_ISSUES (state, assignedIssues) {
+    console.log('SET_ASSIGNED_ISSUES => ', assignedIssues)
+    state.assignedIssues = assignedIssues
   }
 }
 
@@ -48,6 +53,14 @@ const actions = {
         commit('SET_NOTIFICATIONS', response.data)
         return response
       })
+  },
+
+  fetchAssignedIssues ({ commit }) {
+    return Service.getAssignedIssues()
+      .then((response) => {
+        commit('SET_ASSIGNED_ISSUES', response.data)
+        return response
+      })
   }
 }
 
@@ -60,6 +73,10 @@ const getters = {
   },
   notifications: (state) => {
     return state.notifications
+  },
+  assignedIssues: (state) => {
+    console.log('check state => ', state)
+    return state.assignedIssues
   }
 }
 
