@@ -30,7 +30,6 @@ function errorHandler (error) {
 }
 
 /* Github APIs */
-
 function getNotifications () {
   const url = `${BASE_URL}/notifications${getAccessTokenUrl()}`
   return axios
@@ -63,9 +62,10 @@ function getUser () {
   return axios({
     method: 'GET',
     url: `https://api.github.com/user${getAccessTokenUrl()}`
-  }).catch(errorHandler).then((response) => {
-    return response.data
   })
+    .then((response) => {
+      return response.data
+    })
 }
 
 function getComments (url) {

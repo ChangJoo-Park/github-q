@@ -53,8 +53,13 @@ export default {
     }
   },
   async created () {
-    await this.fetchGithubUser()
-    await this.fetchIssueListing()
+    try {
+      await this.fetchGithubUser()
+      await this.fetchIssueListing()
+    } catch (e) {
+      this.$vs.loading.close()
+      this.$router.replace({ name: 'login-page' })
+    }
     // Busses
     this.$bus.$on('update-issue-listing', _ => {
       this.fetchIssueListing()
@@ -73,7 +78,6 @@ export default {
     },
     fetchIssueListing () {
       const { id } = this.githubUser
-      console.log('github id => ', id)
       return this.fetchSavedIssueQueries(id)
     }
   }
