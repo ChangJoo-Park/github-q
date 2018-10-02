@@ -5,7 +5,8 @@ const state = {
   user: null,
   savedIssueQueries: null,
   notifications: null,
-  assignedIssues: null
+  assignedIssues: null,
+  mentionedIssues: null
 }
 
 const mutations = {
@@ -22,8 +23,10 @@ const mutations = {
     state.notifications = notifications
   },
   SET_ASSIGNED_ISSUES (state, assignedIssues) {
-    console.log('SET_ASSIGNED_ISSUES => ', assignedIssues)
     state.assignedIssues = assignedIssues
+  },
+  SET_MENTIONED_ISSUES (state, mentionedIssues) {
+    state.mentionedIssues = mentionedIssues
   }
 }
 
@@ -61,6 +64,14 @@ const actions = {
         commit('SET_ASSIGNED_ISSUES', response.data)
         return response
       })
+  },
+
+  fetchMentionedIssues ({ commit }) {
+    return Service.getMentionedIssues()
+      .then((response) => {
+        commit('SET_MENTIONED_ISSUES', response.data)
+        return response
+      })
   }
 }
 
@@ -75,8 +86,10 @@ const getters = {
     return state.notifications
   },
   assignedIssues: (state) => {
-    console.log('check state => ', state)
     return state.assignedIssues
+  },
+  mentionedIssues: (state) => {
+    return state.mentionedIssues
   }
 }
 
