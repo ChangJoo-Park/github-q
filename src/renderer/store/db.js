@@ -3,7 +3,8 @@ import Dexie from 'dexie'
 const db = new Dexie('github-issues')
 
 db.version(1).stores({
-  issues: '++id, userId, name, query'
+  issues: '++id, userId, name, query',
+  bookmarked: '++id, userId, issueId, description'
 })
 
 function getDB () {
@@ -27,6 +28,24 @@ function getIssue (userId, id) {
 
 function createNewIssue (userId, name, query) {
   return getDB().issues.add({ userId, name, query })
+}
+
+function getBookmarked (userId) {
+  return getDB().bookmarked
+    .where('userId')
+    .equals(userId)
+    .toArray()
+}
+
+function createNewBookmark (userId, issueId, description) {
+  return getDB().bookmarked.add({ userId, issueId, description })
+}
+
+function removeBookmark (issueId) {
+  return getDB().bookmarked
+      .where("issueId")
+      .equals(issueId)
+      .delete()
 }
 
 export default {
