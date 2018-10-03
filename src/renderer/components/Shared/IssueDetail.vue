@@ -43,7 +43,7 @@ export default {
   },
   watch: {
     issue (value) {
-      console.log('issue changed')
+      this.comments = []
       this.fetchComments(this.issue.comments_url)
     }
   },
