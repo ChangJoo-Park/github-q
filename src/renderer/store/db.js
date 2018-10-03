@@ -4,7 +4,7 @@ const db = new Dexie('github-issues')
 
 db.version(1).stores({
   issues: '++id, userId, name, query',
-  bookmarked: '++id, userId, issueId, description'
+  bookmarked: '++id, userId, url, description'
 })
 
 function getDB () {
@@ -12,6 +12,7 @@ function getDB () {
 }
 
 function getIssues (userId) {
+  console.log('userId => ', userId)
   return getDB().issues
     .where('userId')
     .equals(userId)
@@ -32,14 +33,15 @@ function createNewIssue (userId, name, query) {
 
 function getBookmarked (userId) {
   return getDB().bookmarked
-    .where('userId')
-    .equals(userId)
+    .where({
+      userId
+    })
     .toArray()
 }
 
-function createNewBookmark (userId, issueId, description) {
+function createNewBookmark (userId, url, description = '') {
   return getDB().bookmarked
-    .add({ userId, issueId, description })
+    .add({ userId, url })
 }
 
 function removeBookmark (issueId) {

@@ -2,6 +2,14 @@
   <div class="issue-detail">
     <div class="issue-detail-body">
       <div class="issue-details-actions">
+        <vs-button vs-color="warning" vs-type="filled" @click="toggleBookmark">
+          <template v-if="isBookmarked">
+            Delete Bookmark
+          </template>
+          <template v-else>
+            Add Bookmark
+          </template>
+        </vs-button>&nbsp;
         <slot />
       </div>
       <div class="issue-detail-info">
@@ -21,7 +29,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import Service from '@/services'
+import Store from '@/store/db'
 
 import Comments from '@/components/Shared/Comments'
 import Util from '@/utils.js'
@@ -38,21 +49,25 @@ export default {
   data () {
     return {
       comments: [],
-      newComment: ''
+      newComment: '',
+      isBookmarked: false
     }
   },
   watch: {
     issue (value) {
       this.comments = []
+      this.checkBookmarked()
       this.fetchComments(this.issue.comments_url)
     }
   },
   computed: {
+    ...mapGetters(['githubUser']),
     parsedBody () {
       return Util.parseMarkdown(this.issue.body)
     }
   },
   mounted () {
+    this.checkBookmarked()
     this.fetchComments(this.issue.comments_url)
   },
   methods: {
@@ -73,6 +88,33 @@ export default {
           this.newComment = ''
           this.fetchComments(url)
         })
+    },
+    checkBookmarked () {
+      Store.getBookmarked(this.githubUser.id)
+        .then((response) => {
+          const bookmarked = response.find((b) => {
+            return b.url === this.issue.url
+          })
+          this.isBookmarked = !!bookmarked
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    },
+    toggleBookmark () {
+      const userId = this.githubUser.id
+      const url = this.issue.url
+      if (this.isBookmarked) {
+        Store.removeBookmark(userId, url)
+          .then((response) => {
+            this.isBookmarked = false
+          })
+      } else {
+        Store.createNewBookmark(userId, url, '')
+          .then((response) => {
+            this.isBookmarked = true
+          })
+      }
     }
   }
 }
