@@ -44,10 +44,11 @@ function createNewBookmark (userId, url, description = '') {
     .add({ userId, url })
 }
 
-function removeBookmark (issueId) {
+function removeBookmark (userId, url) {
   return getDB().bookmarked
-    .where('issueId')
-    .equals(issueId)
+    .where({
+      userId, url
+    })
     .delete()
 }
 
