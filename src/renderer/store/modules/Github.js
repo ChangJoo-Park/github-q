@@ -5,6 +5,7 @@ const state = {
   user: null,
   savedIssueQueries: null,
   notifications: null,
+  events: null,
   assignedIssues: null,
   mentionedIssues: null
 }
@@ -21,6 +22,9 @@ const mutations = {
   },
   SET_NOTIFICATIONS (state, notifications) {
     state.notifications = notifications
+  },
+  SET_EVENTS (state, events) {
+    state.events = events
   },
   SET_ASSIGNED_ISSUES (state, assignedIssues) {
     state.assignedIssues = assignedIssues
@@ -58,6 +62,14 @@ const actions = {
       })
   },
 
+  fetchRecievedEvents ({ commit }, username) {
+    return Service.getPublicEvents(username)
+      .then((response) => {
+        commit('SET_EVENTS', response.data)
+        return response
+      })
+  },
+
   fetchAssignedIssues ({ commit }) {
     return Service.getAssignedIssues()
       .then((response) => {
@@ -84,6 +96,9 @@ const getters = {
   },
   notifications: (state) => {
     return state.notifications
+  },
+  events: (state) => {
+    return state.events
   },
   assignedIssues: (state) => {
     return state.assignedIssues
