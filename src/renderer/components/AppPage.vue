@@ -2,10 +2,10 @@
   <div class="app">
     <aside class="app-sidebar parentx-static">
       <vs-sidebar static-position default-index="1" color="primary" class="sidebarx" spacer v-model="active">
-        <div class="header-sidebar" slot="header" v-if="user">
-          <vs-avatar  size="50px" :src="user.avatar_url"/>
+        <div class="header-sidebar" slot="header" v-if="githubUser">
+          <vs-avatar  size="50px" :src="githubUser.avatar_url"/>
           <h4>
-            {{ user.login }}
+            {{ githubUser.login }}
             <vs-button vs-color="primary" vs-icon="more_horiz" vs-type="flat"></vs-button>
           </h4>
 
