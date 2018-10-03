@@ -63,6 +63,11 @@ export default new Router({
           path: 'issue/:id',
           name: 'app-page-issue',
           component: require('@/components/AppPage/Issue').default
+        },
+        {
+          path: 'stats',
+          name: 'app-page-stats',
+          component: require('@/components/AppPage/Stats').default
         }
       ]
     },
