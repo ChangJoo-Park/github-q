@@ -92,6 +92,21 @@ function createCommentToIssue (url, body) {
   })
 }
 
+function getPushedRepos (username = '') {
+  return axios({
+    method: 'GET',
+    url: `https://api.github.com/users/${username}/repos${getAccessTokenUrl()}&sort=pushed&per_page=100`
+  })
+}
+
+function getPublicEvents (username = '') {
+  return axios({
+    method: 'GET',
+
+    url: `https://api.github.com/users/${username}/received_events${getAccessTokenUrl()}`
+  })
+}
+
 export default {
   getNotifications,
   getAssignedIssues,
@@ -99,5 +114,7 @@ export default {
   getSearchResult,
   getUser,
   getComments,
-  createCommentToIssue
+  createCommentToIssue,
+  getPushedRepos,
+  getPublicEvents
 }
