@@ -6,7 +6,7 @@
           <vs-avatar  size="50px" :src="githubUser.avatar_url"/>
           <h4>
             {{ githubUser.login }}
-            <vs-button vs-color="primary" vs-icon="more_horiz" vs-type="flat"></vs-button>
+            <!-- <vs-button vs-color="primary" vs-icon="more_horiz" vs-type="flat"></vs-button> -->
           </h4>
 
         </div>
