@@ -14,7 +14,7 @@
           User
         </vs-divider>
         <vs-sidebar-item index= "1" to="/app">Notifications</vs-sidebar-item>
-        <vs-sidebar-item index= "2" to="/app/stats">Stats</vs-sidebar-item>
+        <!-- <vs-sidebar-item index= "2" to="/app/stats">Stats</vs-sidebar-item> -->
         <vs-sidebar-item index= "3" to="/app/bookmarked">Bookmarked</vs-sidebar-item>
         <vs-sidebar-item index= "4" to="/app/assigned">Assigned</vs-sidebar-item>
         <vs-sidebar-item index= "5" to="/app/mentioned">Mentioned</vs-sidebar-item>
@@ -56,8 +56,12 @@ export default {
   async created () {
     try {
       await this.fetchGithubUser()
-      await this.fetchIssueListing()
-      await this.fetchNotifications()
+      const results = [ this.fetchIssueListing(), this.fetchNotifications(), this.fetchRecievedEvents(this.githubUser.login) ]
+      Promise.all(results)
+        .then((values) => {
+          console.log(values)
+        })
+
       // setInterval(async () => {
       //   console.log('run fetch notification')
       //   // await this.fetchNotifications()
@@ -75,7 +79,7 @@ export default {
     ...mapGetters(['githubUser', 'savedIssueQueries'])
   },
   methods: {
-    ...mapActions(['fetchGithubUser', 'fetchSavedIssueQueries', 'fetchNotifications']),
+    ...mapActions(['fetchGithubUser', 'fetchSavedIssueQueries', 'fetchNotifications', 'fetchRecievedEvents']),
     getIssueUrl (id) {
       return `#/app/issue/${id}`
     },
