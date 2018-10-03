@@ -38,19 +38,23 @@ function getBookmarked (userId) {
 }
 
 function createNewBookmark (userId, issueId, description) {
-  return getDB().bookmarked.add({ userId, issueId, description })
+  return getDB().bookmarked
+    .add({ userId, issueId, description })
 }
 
 function removeBookmark (issueId) {
   return getDB().bookmarked
-      .where("issueId")
-      .equals(issueId)
-      .delete()
+    .where('issueId')
+    .equals(issueId)
+    .delete()
 }
 
 export default {
   getDB,
   createNewIssue,
   getIssues,
-  getIssue
+  getIssue,
+  getBookmarked,
+  createNewBookmark,
+  removeBookmark
 }
