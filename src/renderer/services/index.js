@@ -107,6 +107,14 @@ function getPublicEvents (username = '') {
   })
 }
 
+function getIssuesByUrls (urls) {
+  const result = []
+  urls.forEach((url) => {
+    result.push(requestGet(`${url}${getAccessTokenUrl()}`))
+  })
+  return Promise.all(result)
+}
+
 export default {
   getNotifications,
   getAssignedIssues,
@@ -116,5 +124,6 @@ export default {
   getComments,
   createCommentToIssue,
   getPushedRepos,
-  getPublicEvents
+  getPublicEvents,
+  getIssuesByUrls
 }
