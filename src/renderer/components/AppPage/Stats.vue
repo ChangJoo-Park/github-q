@@ -1,7 +1,12 @@
 <template>
   <div class="stats-wrapper">
+    <div class="stats-user" v-if="githubUser">
+        {{ totalPushedRepo }}
+    </div>
+    <div class="stats-repositories">
+
+    </div>
     <pre>{{ githubUser }}</pre>
-    {{ repositories }}
   </div>
 </template>
 
@@ -22,13 +27,19 @@ export default {
       }
     }
   },
-  mounted () {
+  created () {
     if (this.githubUser) {
       this.fetchRepositories(this.githubUser.login)
     }
   },
   computed: {
-    ...mapGetters(['githubUser'])
+    ...mapGetters(['githubUser']),
+    totalPushedRepo () {
+      return this.repositories.length
+    },
+    mainLanguages () {
+
+    }
   },
   methods: {
     fetchRepositories (username) {
