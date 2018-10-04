@@ -20,7 +20,7 @@ export default new Router({
       component: require('@/components/AppPage').default,
       children: [
         {
-          path: '',
+          path: 'notifications',
           name: 'app-page',
           component: require('@/components/AppPage/Notifications').default
         },
