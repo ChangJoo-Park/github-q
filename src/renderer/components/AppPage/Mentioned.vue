@@ -1,28 +1,25 @@
 <template>
-  <div>
-    <h1 class="page-title">Mentioned Issues</h1>
-    <loader-wrapper :is-loaded="isLoaded">
-      <div v-if="mentionedIssues" class="issue-wrapper">
-        <div class="issue-listing-wrapper">
-          <div class="issue-listings">
-            <issue
-            v-for="issue in mentionedIssues"
-            :key="issue.id"
-            :issue="issue"
-            :is-selected="isSelectedIssue(issue)"
-            @click.native="onClickIssue(issue)"
-            />
-          </div>
+  <loader-wrapper :is-loaded="isLoaded">
+    <div v-if="mentionedIssues" class="issue-wrapper">
+      <div class="issue-listing-wrapper">
+        <div class="issue-listings">
+          <issue
+          v-for="issue in mentionedIssues"
+          :key="issue.id"
+          :issue="issue"
+          :is-selected="isSelectedIssue(issue)"
+          @click.native="onClickIssue(issue)"
+          />
         </div>
-        <issue-detail class="issue-details" v-if="selectedIssue" :issue="selectedIssue">
-          <button type="button" name="button" @click="onCloseSelectedIssue">Close</button>
-        </issue-detail>
       </div>
-      <div v-else>
-        <h1>There is no Assigned Issues</h1>
-      </div>
-    </loader-wrapper>
-  </div>
+      <issue-detail class="issue-details" v-if="selectedIssue" :issue="selectedIssue">
+        <button type="button" name="button" @click="onCloseSelectedIssue">Close</button>
+      </issue-detail>
+    </div>
+    <div v-else>
+      <h1>There is no Assigned Issues</h1>
+    </div>
+  </loader-wrapper>
 </template>
 
 <script>

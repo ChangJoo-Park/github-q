@@ -1,28 +1,25 @@
 <template>
-  <div>
-    <h1 class="page-title">Assigned Issues</h1>
-    <loader-wrapper :is-loaded="isLoaded">
-      <div v-if="assignedIssues" class="issue-wrapper">
-        <div class="issue-listing-wrapper">
-          <div class="issue-listings">
-            <issue
-            v-for="issue in assignedIssues"
-            :key="issue.id"
-            :issue="issue"
-            :is-selected="isSelectedIssue(issue)"
-            @click.native="onClickIssue(issue)"
-            />
-          </div>
+  <loader-wrapper :is-loaded="isLoaded">
+    <div v-if="assignedIssues" class="issue-wrapper">
+      <div class="issue-listing-wrapper">
+        <div class="issue-listings">
+          <issue
+          v-for="issue in assignedIssues"
+          :key="issue.id"
+          :issue="issue"
+          :is-selected="isSelectedIssue(issue)"
+          @click.native="onClickIssue(issue)"
+          />
         </div>
-        <issue-detail class="issue-details" v-if="selectedIssue" :issue="selectedIssue">
-          <vs-button vs-color="dark" vs-type="filled" @click="onCloseSelectedIssue">Close</vs-button>
-        </issue-detail>
       </div>
-      <div v-else>
-        <h1>There is no Assigned Issues</h1>
-      </div>
-    </loader-wrapper>
-  </div>
+      <issue-detail class="issue-details" v-if="selectedIssue" :issue="selectedIssue">
+        <vs-button vs-color="dark" vs-type="filled" @click="onCloseSelectedIssue">Close</vs-button>
+      </issue-detail>
+    </div>
+    <div v-else>
+      <h1>There is no Assigned Issues</h1>
+    </div>
+  </loader-wrapper>
 </template>
 
 <script>
@@ -86,7 +83,7 @@ export default {
 
 .issue-listing-wrapper {
   flex: 1;
-  height: calc(100vh - 40px);
+  height: calc(100vh);
   overflow-y: auto;
 }
 

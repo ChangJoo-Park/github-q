@@ -1,6 +1,5 @@
 <template>
   <div class="bookmarked-wrapper">
-    <h1>Bookmarked </h1>
     <issue v-for="issue in issues" :key="issue.id" :issue="issue" />
   </div>
 </template>
