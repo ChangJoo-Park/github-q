@@ -75,6 +75,14 @@ export default {
       this.fetchIssueListing()
     })
   },
+  mounted () {
+    const currentLocation = window.location.href
+    const links = Array.from(document.querySelectorAll('.vs-sidebar-item a'))
+    const link = links.find(link => currentLocation === link.href)
+    if (link) {
+      link.click()
+    }
+  },
   computed: {
     ...mapGetters(['githubUser', 'savedIssueQueries'])
   },
