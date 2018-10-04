@@ -13,7 +13,7 @@
         <vs-divider icon="person" position="left">
           User
         </vs-divider>
-        <vs-sidebar-item index= "1" to="/app">Notifications</vs-sidebar-item>
+        <vs-sidebar-item index= "1" to="/app/notifications">Notifications</vs-sidebar-item>
         <!-- <vs-sidebar-item index= "2" to="/app/stats">Stats</vs-sidebar-item> -->
         <vs-sidebar-item index= "3" to="/app/bookmarked">Bookmarked</vs-sidebar-item>
         <vs-sidebar-item index= "4" to="/app/assigned">Assigned</vs-sidebar-item>
