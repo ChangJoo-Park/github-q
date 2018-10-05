@@ -90,6 +90,6 @@ export default {
 }
 
 .issue-details {
-  flex: 2;
+  flex: 3;
 }
 </style>
