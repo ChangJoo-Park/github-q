@@ -59,9 +59,11 @@ export default {
   },
   watch: {
     issue (value) {
-      this.comments = []
-      this.checkBookmarked()
-      this.fetchComments(this.issue.comments_url)
+      if (value) {
+        this.comments = []
+        this.checkBookmarked()
+        this.fetchComments(this.issue.comments_url)
+      }
     }
   },
   computed: {
