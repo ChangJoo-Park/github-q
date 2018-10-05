@@ -1,6 +1,6 @@
 <template>
   <div v-if="issue" class="issue" :class="{ selected: isSelected }" :title="issue.body">
-    <span class="issue-title-repo">{{repository.full_name}}</span>
+    <span class="issue-title-repo">{{ repositoryPath }}</span>
     <h3 class="issue-title">
       &nbsp;{{ issue.title }}
       <issue-label v-for="label in labels" :key="label.id" :label="label" />
@@ -50,6 +50,12 @@ export default {
     },
     repository () {
       return this.issue.repository || {}
+    },
+    repositoryPath () {
+      if (this.repository && this.repository.full_name) {
+        return this.repository.full_name
+      }
+      return this.issue.repository_url.replace('https://api.github.com/repos/', '')
     },
     createdInformation () {
       const issueNumber = `#${this.issue.number}` || -1
