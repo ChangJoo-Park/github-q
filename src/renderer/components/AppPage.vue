@@ -124,7 +124,6 @@ html, body,.app {
   min-width: 260px;
   border-right: 1px solid rgba(0,0,0,0.1);
   overflow-y: auto;
-  margin-right: 1rem;
 }
 .header-sidebar {
   display: flex;

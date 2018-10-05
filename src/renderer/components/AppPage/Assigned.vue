@@ -12,7 +12,7 @@
           />
         </div>
       </div>
-      <issue-detail class="issue-details" v-if="selectedIssue" :issue="selectedIssue">
+      <issue-detail class="issue-details" :issue="selectedIssue">
         <vs-button vs-color="dark" vs-type="filled" @click="onCloseSelectedIssue">Close</vs-button>
       </issue-detail>
     </div>
@@ -83,11 +83,13 @@ export default {
 
 .issue-listing-wrapper {
   flex: 1;
+  min-height: 300px;
   height: calc(100vh);
   overflow-y: auto;
+  border-right: 1px solid rgba(47, 47, 47, 0.1);
 }
 
 .issue-details {
-  flex: 2;
+  flex: 3;
 }
 </style>

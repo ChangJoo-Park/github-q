@@ -12,7 +12,7 @@
           />
         </div>
       </div>
-      <issue-detail class="issue-details" v-if="selectedIssue" :issue="selectedIssue">
+      <issue-detail class="issue-details" :issue="selectedIssue">
         <button type="button" name="button" @click="onCloseSelectedIssue">Close</button>
       </issue-detail>
     </div>

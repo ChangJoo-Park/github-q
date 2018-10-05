@@ -1,5 +1,5 @@
 <template>
-  <div class="issue-detail">
+  <div class="issue-detail" v-if="issue">
     <div class="issue-detail-body">
       <div class="issue-details-actions">
         <vs-button vs-color="warning" vs-type="filled" @click="toggleBookmark">
@@ -26,6 +26,9 @@
       <vs-button vs-color="primary" vs-type="filled" @click.prevent="submitComment">Submit</vs-button>
     </div>
   </div>
+  <div class="issue-detail-empty" v-else>
+    <h1>Please Select Issue</h1>
+  </div>
 </template>
 
 <script>
@@ -40,7 +43,8 @@ import Util from '@/utils.js'
 export default {
   props: {
     issue: {
-      type: Object
+      type: Object,
+      default: () => {}
     }
   },
   components: {
@@ -67,8 +71,10 @@ export default {
     }
   },
   mounted () {
-    this.checkBookmarked()
-    this.fetchComments(this.issue.comments_url)
+    if (this.issue) {
+      this.checkBookmarked()
+      this.fetchComments(this.issue.comments_url)
+    }
   },
   methods: {
     fetchComments (commentsUrl) {
@@ -121,6 +127,10 @@ export default {
 </script>
 
 <style lang="css">
+.issue-detail, .issue-detail-empty {
+  padding: 1rem;
+}
+
 .issue-detail {
   overflow-y: auto;
   height: calc(100vh - 40px);

@@ -1,16 +1,16 @@
 <template>
-  <div v-if="issue" class="issue" :class="{ selected: isSelected }">
+  <div v-if="issue" class="issue" :class="{ selected: isSelected }" :title="issue.body">
+    <span class="issue-title-repo">{{repository.full_name}}</span>
     <h3 class="issue-title">
-      <small class="issue-title-repo">{{repository.full_name}}</small>&nbsp;{{ issue.title }}
+      &nbsp;{{ issue.title }}
       <issue-label v-for="label in labels" :key="label.id" :label="label" />
     </h3>
     <div class="issue-meta">
-      {{ createdInformation }} / {{ issue.comments }}
+      {{ createdInformation }} /
+      <span class="issue-comments"><i class="material-icons" style="vertical-align: middle;">comment</i> {{ issue.comments }}</span>
     </div>
-    <div class="issue-body" v-html="markdownParsedBody" />
     <div class="issue-assignees" v-if="assignees">
-      <div>Assignees :</div>
-      <issue-assignee v-for="assignee in assignees" :key="assignee.id" :assignee="assignee" />
+      <issue-assignee v-for="assignee in assignees" :key="assignee.id" :assignee="assignee" :title="assignee.login"/>
     </div>
   </div>
 </template>
@@ -69,18 +69,10 @@ export default {
 
 <style lang='scss'>
 .issue {
-  box-shadow: 0 4px 25px 0 rgba(0,0,0,.1);
-  margin: .5rem;
-  margin-bottom: 1rem;
   padding: 1rem;
-  border-radius: 1rem;
-  transition: box-shadow 0.5s;
   cursor: pointer;
   word-wrap: break-word;
-
-  &:hover {
-    box-shadow: 0 5px 25px 0 rgba(0,0,0,.3);
-  }
+  border-bottom: 1px solid rgba(47, 47, 47, 0.1);
 }
 
 .issue-title {
@@ -122,5 +114,9 @@ export default {
 
 .issue.selected {
   background-color: #ddd;
+}
+.issue-comments {
+  font-size: 24px;
+  vertical-align: middle;
 }
 </style>
