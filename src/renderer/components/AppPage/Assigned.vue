@@ -83,13 +83,13 @@ export default {
 
 .issue-listing-wrapper {
   flex: 1;
-  min-height: 300px;
+  min-width: 300px;
   height: calc(100vh);
   overflow-y: auto;
   border-right: 1px solid rgba(47, 47, 47, 0.1);
 }
 
 .issue-details {
-  flex: 3;
+  flex: 2;
 }
 </style>
